@@ -7,7 +7,7 @@ import { DynamicContextProvider, WebView } from '@dynamic-labs/react-native-exte
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { AuthGate } from '@/components/auth-gate';
-import { dynamicClient } from '@/lib/dynamicClient';
+import { dynamicClient, dynamicReactNative } from '@/lib/dynamicClient';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -18,8 +18,8 @@ export default function RootLayout() {
 
   return (
     <>
-      <WebView />
-      <DynamicContextProvider dynamicClient={dynamicClient}>
+      <dynamicReactNative.WebView />
+      <dynamicReactNative.DynamicContextProvider client={dynamicClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <AuthGate>
             <Stack>
@@ -29,7 +29,7 @@ export default function RootLayout() {
             <StatusBar style="auto" />
           </AuthGate>
         </ThemeProvider>
-      </DynamicContextProvider>
+      </dynamicReactNative.DynamicContextProvider>
     </>
   );
 }

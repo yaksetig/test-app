@@ -14,3 +14,5 @@ if (!dynamicClient.reactNative) {
     'Dynamic React Native extension failed to initialize. Ensure ReactNativeExtension is added to the client.',
   );
 }
+
+export const dynamicReactNative = dynamicClient.reactNative;
