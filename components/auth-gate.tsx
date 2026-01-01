@@ -1,4 +1,4 @@
-import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-native';
+import { DynamicWidget, useDynamicContext } from '@dynamic-labs/react-native-extension';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';

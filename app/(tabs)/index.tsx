@@ -1,4 +1,4 @@
-import { DynamicWidget } from '@dynamic-labs/sdk-react-native';
+import { DynamicWidget } from '@dynamic-labs/react-native-extension';
 import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
