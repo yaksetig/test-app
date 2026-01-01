@@ -3,9 +3,9 @@ import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '@/constants/theme';
-import { dynamicClient } from '@/lib/dynamicClient';
+import { dynamicReactNative } from '@/lib/dynamicClient';
 
-const { DynamicWidget, useDynamicContext } = dynamicClient.reactNative;
+const { DynamicWidget, useDynamicContext } = dynamicReactNative;
 
 const AUTH_STORAGE_KEY = 'dynamic_wallet_authenticated';
 
