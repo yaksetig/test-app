@@ -3,6 +3,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
+import { DynamicContextProvider, WebView } from '@dynamic-labs/react-native-extension';
+
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { AuthGate } from '@/components/auth-gate';
 import { dynamicClient, dynamicReactNative } from '@/lib/dynamicClient';
