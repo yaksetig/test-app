@@ -1,112 +1,114 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { DynamicWidget } from '@dynamic-labs/sdk-react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
+import { Colors } from '@/constants/theme';
 import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
 
-export default function TabTwoScreen() {
+const transactions = [
+  { id: '1', title: 'Deposit from exchange', amount: 1200, status: 'Completed', time: 'Today, 10:24' },
+  { id: '2', title: 'Sent to 0x90...12A4', amount: -250, status: 'Pending', time: 'Today, 08:02' },
+  { id: '3', title: 'NFT purchase', amount: -480, status: 'Completed', time: 'Yesterday, 19:44' },
+  { id: '4', title: 'Rewards claim', amount: 36.5, status: 'Completed', time: 'Yesterday, 11:09' },
+];
+
+export default function TransactionsScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <ThemedView style={styles.container}>
+      <View style={styles.headerRow}>
+        <View>
+          <Text style={styles.title}>Activity</Text>
+          <Text style={styles.subtitle}>Track your latest moves</Text>
+        </View>
+        <DynamicWidget variant="dropdown" buttonStyle={styles.widgetButton} />
+      </View>
+      <ScrollView style={styles.list} contentContainerStyle={{ gap: 12 }}>
+        {transactions.map((tx) => (
+          <View key={tx.id} style={styles.transactionCard}>
+            <View style={{ flex: 1, gap: 4 }}>
+              <Text style={styles.transactionTitle}>{tx.title}</Text>
+              <Text style={styles.transactionMeta}>{tx.time}</Text>
+            </View>
+            <View style={styles.statusBlock}>
+              <Text style={[styles.amount, tx.amount >= 0 ? styles.positive : styles.negative]}>
+                {tx.amount >= 0 ? '+' : '-'}${Math.abs(tx.amount).toLocaleString()}
+              </Text>
+              <Text style={styles.status}>{tx.status}</Text>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: Colors.light.background,
+    gap: 16,
   },
-  titleContainer: {
+  headerRow: {
     flexDirection: 'row',
-    gap: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: Colors.light.text,
+  },
+  subtitle: {
+    color: Colors.light.icon,
+    marginTop: 4,
+  },
+  widgetButton: {
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#a7f3d0',
+    borderRadius: 12,
+    paddingVertical: 10,
+  },
+  list: {
+    flex: 1,
+  },
+  transactionCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.05,
+    shadowRadius: 16,
+    elevation: 4,
+  },
+  transactionTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: Colors.light.text,
+  },
+  transactionMeta: {
+    color: Colors.light.icon,
+  },
+  statusBlock: {
+    alignItems: 'flex-end',
+    gap: 4,
+  },
+  amount: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  status: {
+    color: '#065f46',
+    fontWeight: '600',
+  },
+  positive: {
+    color: Colors.light.tint,
+  },
+  negative: {
+    color: '#b91c1c',
   },
 });
