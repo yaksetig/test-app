@@ -17,15 +17,17 @@ export default function RootLayout() {
   return (
     <>
       <dynamicClient.reactNative.WebView />
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <AuthGate>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-          </Stack>
-          <StatusBar style="auto" />
-        </AuthGate>
-      </ThemeProvider>
+      <dynamicClient.reactNative.DynamicContextProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <AuthGate>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+            </Stack>
+            <StatusBar style="auto" />
+          </AuthGate>
+        </ThemeProvider>
+      </dynamicClient.reactNative.DynamicContextProvider>
     </>
   );
 }
