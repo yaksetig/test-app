@@ -2,10 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { Colors } from '@/constants/theme';
-import { dynamicClient } from '@/lib/dynamicClient';
+import { DynamicWidget, useDynamicContext } from '@dynamic-labs/react-native-extension';
 
-const { DynamicWidget, useDynamicContext } = dynamicClient.reactNative;
+import { Colors } from '@/constants/theme';
 
 const AUTH_STORAGE_KEY = 'dynamic_wallet_authenticated';
 

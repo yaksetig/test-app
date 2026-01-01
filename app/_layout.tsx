@@ -3,6 +3,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
+import { DynamicContextProvider, WebView } from '@dynamic-labs/react-native-extension';
+
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { AuthGate } from '@/components/auth-gate';
 import { dynamicClient } from '@/lib/dynamicClient';
@@ -16,8 +18,8 @@ export default function RootLayout() {
 
   return (
     <>
-      <dynamicClient.reactNative.WebView />
-      <dynamicClient.reactNative.DynamicContextProvider>
+      <WebView />
+      <DynamicContextProvider dynamicClient={dynamicClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <AuthGate>
             <Stack>
@@ -27,7 +29,7 @@ export default function RootLayout() {
             <StatusBar style="auto" />
           </AuthGate>
         </ThemeProvider>
-      </dynamicClient.reactNative.DynamicContextProvider>
+      </DynamicContextProvider>
     </>
   );
 }
