@@ -8,3 +8,11 @@ export const dynamicClient = createClient({
 })
   // .extend(WebExtension()) // optional
   .extend(ReactNativeExtension());
+
+if (!dynamicClient.reactNative) {
+  throw new Error(
+    'Dynamic React Native extension failed to initialize. Ensure ReactNativeExtension is added to the client.',
+  );
+}
+
+export const dynamicReactNative = dynamicClient.reactNative;
